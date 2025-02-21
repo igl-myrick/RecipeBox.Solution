@@ -21,5 +21,22 @@ namespace RecipeBox.Controllers
       List<Recipe> model = _db.Recipes.ToList();
       return View(model);
     }
+
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Recipe recipe)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(recipe);
+      }
+      _db.Recipes.Add(recipe);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
