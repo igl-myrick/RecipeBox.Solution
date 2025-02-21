@@ -1,0 +1,49 @@
+@{
+  Layout = "_Layout";
+}
+
+@using RecipeBox.Models;
+
+<div class="container">
+  <div class="row">
+    <h1 class="text-center my-3">Recipe Box</h1>
+    <div class="col-md-4">
+      <div id="recipes-wrapper" class="border rounded p-2">
+        <h4>Recipes</h4>
+        @if (Model["recipes"].Length == 0)
+        {
+          <p>No recipes have been added yet.</p>
+        }
+        <ul>
+          @foreach (Recipe recipe in Model["recipes"])
+          {
+            <li>@Html.ActionLink(recipe.Name, "Details", "Recipes", new { id = recipe.RecipeId })</li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div id="tags-wrapper" class="border rounded p-2">
+        <h4>Tags</h4>
+        @if (Model["tags"].Length == 0)
+        {
+          <p>No tags have been added yet.</p>
+        }
+        <ul>
+          @foreach (Tag tag in Model["tags"])
+          {
+            <li>@Html.ActionLink(tag.Name, "Details", "Tags", new { id = tag.TagId })</li>
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div id="links-wrapper" class="border rounded p-2">
+        <p>@Html.ActionLink("See all recipes", "Index", "Recipes")</p>
+        <p>@Html.ActionLink("See all tags", "Index", "Tags")</p>
+      </div>
+    </div>
+  </div>
+</div>
