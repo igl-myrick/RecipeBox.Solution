@@ -12,7 +12,6 @@ namespace RecipeBox.Models
     public string Ingredients { get; set; }
     [Required(ErrorMessage = "Please enter some instructions first.")]
     public string Instructions { get; set; }
-    [Range(1, 5)]
     public string Rating { get; set; }
     public List<RecipeTag> JoinEntities { get; }
   }
