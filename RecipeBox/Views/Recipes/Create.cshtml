@@ -1,0 +1,34 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBox.Models.Recipe
+
+<h4>Add a new recipe</h4>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+  <p>@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+
+  @Html.LabelFor(model => model.Ingredients)
+  @Html.TextBoxFor(model => model.Ingredients)
+  <p>@Html.ValidationMessageFor(model => model.Ingredients, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+  
+  @Html.LabelFor(model => model.Instructions)
+  @Html.TextBoxFor(model => model.Instructions)
+  <p>@Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p>
+
+  <div class="form-group">
+    <p>Rating</p>
+    @Html.RadioButton("Rating", "1 star") @Html.Label("1 star")<br>
+    @Html.RadioButton("Rating", "2 stars") @Html.Label("2 stars")<br>
+    @Html.RadioButton("Rating", "3 stars", new { @checked = "checked" }) @Html.Label("3 stars")<br>
+    @Html.RadioButton("Rating", "4 stars") @Html.Label("4 stars")<br>
+    @Html.RadioButton("Rating", "5 stars") @Html.Label("5 stars")
+  </div>
+
+  <input type="submit" value="Add new recipe">
+}
+
+<p>@Html.ActionLink("Show all recipes", "Index")</p>
