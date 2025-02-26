@@ -1,0 +1,38 @@
+@{
+  Layout = "_Layout";
+}
+
+@model RecipeBox.Models.Recipe
+
+<h2>Edit</h2>
+
+<h4>Edit this recipe: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+  @Html.HiddenFor(model => model.RecipeId)
+
+  <div class="form-group"></div>
+  @Html.LabelFor(model => model.Name)
+  @Html.EditorFor(model => model.Name)
+  <p>@Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p><br>
+
+  @Html.LabelFor(model => model.Ingredients)
+  @Html.TextAreaFor(model => model.Ingredients)
+  <p>@Html.ValidationMessageFor(model => model.Ingredients, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p><br>
+
+  @Html.LabelFor(model => model.Instructions)
+  @Html.TextAreaFor(model => model.Instructions)
+  <p>@Html.ValidationMessageFor(model => model.Instructions, "", new { @class = "text-danger", @style = "font-weight: 600;" })</p><br>
+  
+  <div class="form-group">
+    <p>Rating</p>
+    @Html.RadioButton("Rating", "1 star") @Html.Label("1 star")<br>
+    @Html.RadioButton("Rating", "2 stars") @Html.Label("2 stars")<br>
+    @Html.RadioButton("Rating", "3 stars") @Html.Label("3 stars")<br>
+    @Html.RadioButton("Rating", "4 stars") @Html.Label("4 stars")<br>
+    @Html.RadioButton("Rating", "5 stars") @Html.Label("5 stars")
+  </div>
+
+  <input type="submit" value="Save">
+}
