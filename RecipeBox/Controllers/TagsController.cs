@@ -28,5 +28,22 @@ namespace RecipeBox.Controllers
         .FirstOrDefault(tag => tag.TagId == id);
       return View(thisTag);
     }
+
+    public ActionResult Create()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult Create(Tag tag)
+    {
+      if (!ModelState.IsValid)
+      {
+        return View(tag);
+      }
+      _db.Tags.Add(tag);
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
