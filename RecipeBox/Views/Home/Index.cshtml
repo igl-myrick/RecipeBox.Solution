@@ -9,17 +9,25 @@
     <h1 class="text-center my-3">Recipe Box</h1>
     <div class="col-md-4">
       <div id="recipes-wrapper" class="border rounded p-2">
-        <h4>Recipes</h4>
-        @if (Model["recipes"].Length == 0)
+        @if (User.Identity.IsAuthenticated)
         {
-          <p>No recipes have been added yet.</p>
-        }
-        <ul>
-          @foreach (Recipe recipe in Model["recipes"])
+          <h4>@User.Identity.Name's Recipes</h4>
+          @if (Model["recipes"].Length == 0)
           {
-            <li>@Html.ActionLink(recipe.Name, "Details", "Recipes", new { id = recipe.RecipeId })</li>
+            <p>No recipes have been added yet.</p>
           }
-        </ul>
+          <ul>
+            @foreach (Recipe recipe in Model["recipes"])
+            {
+              <li>@Html.ActionLink(recipe.Name, "Details", "Recipes", new { id = recipe.RecipeId })</li>
+            }
+          </ul>
+        }
+        else
+        {
+          <h4>Recipes</h4>
+          <p>@Html.ActionLink("Log in", "Login", "Account") to view and manage items.</p>
+        }
       </div>
     </div>
 
@@ -41,8 +49,8 @@
 
     <div class="col-md-4">
       <div id="links-wrapper" class="border rounded p-2">
-        <p>@Html.ActionLink("See all recipes", "Index", "Recipes")</p>
-        <p>@Html.ActionLink("See all tags", "Index", "Tags")</p>
+        <p>@Html.ActionLink("Manage recipes", "Index", "Recipes")</p>
+        <p>@Html.ActionLink("Manage tags", "Index", "Tags")</p>
         <p>@Html.ActionLink("Create or manage an account", "Index", "Account")</p>
       </div>
     </div>
