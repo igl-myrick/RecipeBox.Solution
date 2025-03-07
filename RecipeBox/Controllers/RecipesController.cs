@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using RecipeBox.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RecipeBox.Controllers
 {
@@ -92,7 +93,7 @@ namespace RecipeBox.Controllers
     public ActionResult AddTag(Recipe recipe, int tagId)
     {
       #nullable enable
-      RecipeTag? joinEntity = _db.RecipeTags.FirstOrDefault(join => (join.TagId == tagId && join.RecipeId == recipe.RecipeId));
+      RecipeTag? joinEntity = _db.RecipeTags.FirstOrDefault(join => join.TagId == tagId && join.RecipeId == recipe.RecipeId);
       #nullable disable
       if (joinEntity == null && tagId != 0)
       {
