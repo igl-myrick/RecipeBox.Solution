@@ -20,10 +20,13 @@ else
     @foreach (RecipeTag join in Model.JoinEntities)
     {
       <li>@Html.ActionLink($"{join.Recipe.Name}", "Details", "Recipes", new { id = join.RecipeId })</li>
-      @using (Html.BeginForm("DeleteJoin", "Tags"))
+      if (User.Identity.IsAuthenticated)
       {
-        @Html.Hidden("joinId", join.RecipeTagId)
-        <input type="submit" value="Delete">
+        @using (Html.BeginForm("DeleteJoin", "Tags"))
+        {
+          @Html.Hidden("joinId", join.RecipeTagId)
+          <input type="submit" value="Delete">
+        }
       }
     }
   </ul>
