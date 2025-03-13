@@ -127,5 +127,16 @@ namespace RecipeBox.Controllers
       _db.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    public async Task<ActionResult> SearchByRating()
+    {
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Recipe> userRecipes = _db.Recipes
+        .Where(entry => entry.User.Id == currentUser.Id)
+        .OrderByDescending(recipe => recipe.Rating)
+        .ToList();
+      return View(userRecipes);
+    }
   }
 }
