@@ -1,0 +1,30 @@
+@{
+  Layout = "_Layout";
+}
+
+@using RecipeBox.Models;
+
+<h2>Search by Ingredient</h2>
+
+@using (Html.BeginForm("DisplaySearchResults", "Recipes", FormMethod.Post))
+{
+  @Html.Label("searchStr", "Enter a search term")
+  @Html.TextBox("searchStr")
+  <button type="submit">Search</button>
+}
+
+<ul>
+  @if (Model.Count > 0)
+  {
+    foreach (Recipe recipe in Model)
+    {
+      <li>@Html.ActionLink($"{recipe.Name}", "Details", new { id = recipe.RecipeId })</li>
+    }
+  }
+  else
+  {
+    <p>No results were found.</p>
+  }
+</ul>
+
+<p>@Html.ActionLink("Back to recipe list", "Index")</p>
