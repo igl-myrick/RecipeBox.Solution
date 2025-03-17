@@ -138,5 +138,38 @@ namespace RecipeBox.Controllers
         .ToList();
       return View(userRecipes);
     }
+
+    public async Task<ActionResult> SearchByIngredient(string searchQuery = "")
+    {
+      string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      ApplicationUser currentUser = await _userManager.FindByIdAsync(userId);
+      List<Recipe> userRecipes = new List<Recipe>{};
+      if (searchQuery == "")
+      {
+        return View(userRecipes);
+      }
+      else if (searchQuery != "")
+      {
+        userRecipes = _db.Recipes
+          .Where(entry => entry.User.Id == currentUser.Id)
+          .ToList();
+        List<Recipe> searchResults = new List<Recipe> {};
+        foreach (Recipe recipe in userRecipes)
+        {
+          if (recipe.Ingredients.ToUpper().Contains(searchQuery.ToUpper()))
+          {
+            searchResults.Add(recipe);
+          }
+        }
+        return View(searchResults);
+      }
+      return View();
+    }
+
+    [HttpPost]
+    public ActionResult DisplaySearchResults(string searchStr)
+    {
+      return RedirectToAction("SearchByIngredient", new { searchQuery = searchStr});
+    }
   }
 }
