@@ -21,11 +21,26 @@
 
   <div class="form-group">
     <p>Rating</p>
-    @Html.RadioButton("Rating", "1 star") @Html.Label("1 star")<br>
-    @Html.RadioButton("Rating", "2 stars") @Html.Label("2 stars")<br>
-    @Html.RadioButton("Rating", "3 stars", new { @checked = "checked" }) @Html.Label("3 stars")<br>
-    @Html.RadioButton("Rating", "4 stars") @Html.Label("4 stars")<br>
-    @Html.RadioButton("Rating", "5 stars") @Html.Label("5 stars")
+    <label>
+      <input type="radio" name="rating" value="1 star" id="1star">
+      1 star
+    </label><br>
+    <label>
+      <input type="radio" name="rating" value="2 stars" id="2stars">
+      2 stars
+    </label><br>
+    <label>
+      <input type="radio" name="rating" value="3 stars" id="3stars" checked>
+      3 stars
+    </label><br>
+    <label>
+      <input type="radio" name="rating" value="4 stars" id="4stars">
+      4 stars
+    </label><br>
+    <label>
+      <input type="radio" name="rating" value="5 stars" id="5stars">
+      5 stars
+    </label>
   </div>
 
   <input type="submit" value="Add new recipe">
