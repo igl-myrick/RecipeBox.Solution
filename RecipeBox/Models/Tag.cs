@@ -9,5 +9,6 @@ namespace RecipeBox.Models
     [Required(ErrorMessage = "Please enter a valid name.")]
     public string Name { get; set; }
     public List<RecipeTag> JoinEntities { get; }
+    public ApplicationUser User { get; set; }
   }
 }
