@@ -32,7 +32,10 @@ else
   </ul>
 }
 
-<p>@Html.ActionLink("Add a recipe", "AddRecipe", new { id = Model.TagId })</p>
-<p>@Html.ActionLink("Edit tag", "Edit", new { id = Model.TagId })</p>
-<p>@Html.ActionLink("Delete tag", "Delete", new { id = Model.TagId })</p>
+@if (User.Identity.IsAuthenticated)
+{
+  <p>@Html.ActionLink("Add a recipe", "AddRecipe", new { id = Model.TagId })</p>
+  <p>@Html.ActionLink("Edit tag", "Edit", new { id = Model.TagId })</p>
+  <p>@Html.ActionLink("Delete tag", "Delete", new { id = Model.TagId })</p>
+}
 <p>@Html.ActionLink("Back to tag list", "Index")</p>
