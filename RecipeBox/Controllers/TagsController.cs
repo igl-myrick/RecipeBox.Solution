@@ -32,6 +32,7 @@ namespace RecipeBox.Controllers
       string userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
       Tag thisTag = _db.Tags
         .Include(tag => tag.JoinEntities.Where(join => join.Recipe != null && join.Recipe.User.Id == userId))
+        .ThenInclude(join => join.Recipe)
         .FirstOrDefault(tag => tag.TagId == id);
       return View(thisTag);
     }
