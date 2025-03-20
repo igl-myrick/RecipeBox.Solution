@@ -9,33 +9,30 @@
 <hr>
 <h3>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</h3>
 
-@if (Model.JoinEntities.Count == 0)
+@if (User.Identity.IsAuthenticated)
 {
-  <p>No recipes have been added to this tag yet.</p>
-}
-else
-{
-  <h4>Recipes tagged as @Html.DisplayFor(model => model.Name):</h4>
-  <ul>
-    @foreach (RecipeTag join in Model.JoinEntities)
-    {
-      <li>@Html.ActionLink($"{join.Recipe.Name}", "Details", "Recipes", new { id = join.RecipeId })</li>
-      if (User.Identity.IsAuthenticated)
+  @if (Model.JoinEntities.Count == 0)
+  {
+    <p>No recipes have been added to this tag yet.</p>
+  }
+  else
+  {
+    <h4>Recipes tagged as @Html.DisplayFor(model => model.Name):</h4>
+    <ul>
+      @foreach (RecipeTag join in Model.JoinEntities)
       {
+        <li>@Html.ActionLink($"{join.Recipe.Name}", "Details", "Recipes", new { id = join.RecipeId })</li>
         @using (Html.BeginForm("DeleteJoin", "Tags"))
         {
           @Html.Hidden("joinId", join.RecipeTagId)
           <input type="submit" value="Delete">
         }
       }
-    }
-  </ul>
-}
+    </ul>
+  }
 
-@if (User.Identity.IsAuthenticated)
-{
-  <p>@Html.ActionLink("Add a recipe", "AddRecipe", new { id = Model.TagId })</p>
-  <p>@Html.ActionLink("Edit tag", "Edit", new { id = Model.TagId })</p>
-  <p>@Html.ActionLink("Delete tag", "Delete", new { id = Model.TagId })</p>
+<p>@Html.ActionLink("Add a recipe", "AddRecipe", new { id = Model.TagId })</p>
+<p>@Html.ActionLink("Edit tag", "Edit", new { id = Model.TagId })</p>
+<p>@Html.ActionLink("Delete tag", "Delete", new { id = Model.TagId })</p>
 }
 <p>@Html.ActionLink("Back to tag list", "Index")</p>
